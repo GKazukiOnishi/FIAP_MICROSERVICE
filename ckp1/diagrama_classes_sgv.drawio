@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-03-30T23:43:52.678Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="EFkYxoHuIiaXubChd4Mu" version="21.1.2" type="device">
+<mxfile host="app.diagrams.net" modified="2023-03-31T01:02:45.978Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="K1JYxrnSg8n9J2-Bmbvt" version="21.1.2" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1120" dy="1653" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1120" dy="1596" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -88,7 +88,7 @@
         <mxCell id="ibEGOhIXK1muAB-vMmJn-39" value="Duracao" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="530" y="554" width="160" height="124" as="geometry" />
         </mxCell>
-        <mxCell id="ibEGOhIXK1muAB-vMmJn-40" value="- hora: int&lt;br&gt;- minuto: int&lt;br&gt;- segundo: int&lt;br&gt;- formato: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-39">
+        <mxCell id="ibEGOhIXK1muAB-vMmJn-40" value="- hora: int&lt;br&gt;- minuto: int&lt;br&gt;- formato: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-39">
           <mxGeometry y="26" width="160" height="64" as="geometry" />
         </mxCell>
         <mxCell id="ibEGOhIXK1muAB-vMmJn-41" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-39">
@@ -98,13 +98,13 @@
           <mxGeometry y="98" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="ibEGOhIXK1muAB-vMmJn-43" value="TrajetoDTO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="140" y="-220" width="160" height="108" as="geometry" />
+          <mxGeometry x="140" y="-220" width="160" height="118" as="geometry" />
         </mxCell>
-        <mxCell id="ibEGOhIXK1muAB-vMmJn-44" value="- origem: LocalizacaoDTO&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- destino: LocalizacaoDTO&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- distancia: double&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- velocidadeMedia: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-43">
-          <mxGeometry y="26" width="160" height="74" as="geometry" />
+        <mxCell id="ibEGOhIXK1muAB-vMmJn-44" value="- origem: LocalizacaoDTO&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- destino: LocalizacaoDTO&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- distancia: double&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- velocidadeMedia: double&lt;br&gt;- duracao: DuracaoDTO" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-43">
+          <mxGeometry y="26" width="160" height="84" as="geometry" />
         </mxCell>
         <mxCell id="ibEGOhIXK1muAB-vMmJn-45" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-43">
-          <mxGeometry y="100" width="160" height="8" as="geometry" />
+          <mxGeometry y="110" width="160" height="8" as="geometry" />
         </mxCell>
         <mxCell id="ibEGOhIXK1muAB-vMmJn-48" value="DTO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="450" y="-280" width="60" height="30" as="geometry" />
@@ -117,6 +117,15 @@
         </mxCell>
         <mxCell id="ibEGOhIXK1muAB-vMmJn-51" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-49">
           <mxGeometry y="140" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ibEGOhIXK1muAB-vMmJn-53" value="DuracaoDTO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="370" y="-220" width="160" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="ibEGOhIXK1muAB-vMmJn-54" value="- hora: int&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- minuto: int&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;- formato: String&lt;br&gt;- duracaoFormatada: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-53">
+          <mxGeometry y="26" width="160" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="ibEGOhIXK1muAB-vMmJn-55" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ibEGOhIXK1muAB-vMmJn-53">
+          <mxGeometry y="100" width="160" height="8" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
