@@ -1,0 +1,95 @@
+MVC
+	Camadas de aplicação Web - View
+	
+	Thymeleaf
+	
+	Diferença com SPA - Single Page Application
+		SPAs costumam não trabalhar muito com URL
+		MVC já não, permite acessar direto pela URL
+	
+		Mas hoje em dia tem MVC que retorna JSON
+	
+	ViewModels -> DTOs
+		Formas de visualizar o mesmo modelo
+		
+		Podemos ver os dados do aluno de maneiras:
+			Acadêmicas
+			Financeiras
+			...
+		
+		A ideia dela é segregar as informações
+		Podemos ter ViewModels por cliente também -> mas fica difícil de manter o serviço
+		
+	OpenAPI (Swagger)
+		Ajuda a fazer a documentação dos serviços
+		
+		Conforme criamos recursos na API / Controllers, esse OpenAPI ajuda a documentar automaticamente
+		Lá são listadas as respostas possíveis
+			Ex: 200
+				401 -> Unauthorized, você não está autenticado
+				403 -> Forbidden, você está autenticado mas não tem permissão para acessar o recurso
+				404
+		
+	Fila de barramento
+		Ao invés de fazer o cliente depender diretamente de um serviço, criamos uma fila que vai ficar recebendo requisições
+		Aí a fila vai andando e se comunicando com o serviço
+		Se não der certo, ele continua tentando e você ainda está na fila
+		
+	Idempotencia
+		É o conceito de retornar a mesma coisa para a mesma entrada
+		
+		Métodos GET, PUT são idempotentes por natureza
+		
+		POST já não, ele cria coisas novas, então ele vai criar um novo recurso, se rodar de novo vai criar um novo
+		
+		Ex: O serviço que cobra um valor do cliente não pode rodar duas vezes
+		
+	Quando quebramos um monolito em microserviços surgem problemas como esses, que exigem outras soluções
+	
+	DAO -> Data Access Object
+		São classes próximas da modelagem de tabelas
+		Sem muito OOP
+		
+	Model -> 
+		A ideia é não ser muito anemico
+		Precisa tratar o negócio, saber o que ela precisa fazer
+		Ex: A classe CPF sabe se validar
+		
+		Lá usamos OOP de verdade, encapsulamento, herança etc.
+		
+		Livro Domain-Driven Design
+			Tem a ideia de agregação
+			
+			Os modelos em si sabem se validar
+			A Agregação sabe validar eles em conjunto
+			
+	Business Layer
+		Não fica validando e atualizando
+		É um proxy
+		
+		Ela chama as validações do modelo
+		Chama coisa do banco
+		
+		Sabe o que fazer se der problema
+		Se der certo
+		Ela é a unidade transacional
+		
+	
+		Cada serviço trata um contexto de negócio
+		Cada serviço tem um base de dados
+		O que significa que um serviço de cobrança não atualiza o endereço
+	
+		A business layer saberia tratar isso, saberia fazer o "rollback" via outra solução
+		
+	MVC - Controller
+		Exemplos no slide
+		
+	As views retornadas são processadas no servidor e retornam html
+	O navegador não sabe ler java
+	Quem processa é o servidor, Server Side
+	
+	
+		
+			
+		
+		
