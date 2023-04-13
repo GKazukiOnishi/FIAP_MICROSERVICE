@@ -1,0 +1,67 @@
+Anotações - Design Pattern
+	Forma de adicionar coisas em um pipeline
+	Como se fosse um cano
+	Programação Orientada a Aspecto
+	Configurar algo para rodar em determinado momento
+	
+	Vai montando uma sequência de execução, vamos só adicionando comportamentos através de anotações
+	
+Spring ajuda nisso
+Colocamos toda a complexidade de ficar escutando uma porta por requisições, converter e tals
+O Spring faz tudo isso e vc só se preocupa com o negócio
+Só anotar com @AlgumaCoisa
+
+	Nisso é configurado para rodar algo antes/depois da sua classe rodar
+	
+	Middleware é um nome para isso também, roda algo antes/depois de algo
+	Ex: gzip -> aparece no Accept-Encoding
+	Middleware de saída
+	
+	Na núvem o que custa é a saída, response
+	Por isso esse gzip e outros ajudam
+	
+	Maiores ofensores de performance: Disco, Rede e Garbage Collector
+	Para gravar/ler no disco é lento, Para fazer comunicação de rede (ex: servidor da aplicação em um e o banco em outro)
+	Coletor de lixo: Temos a memória Stack e Heap, objetos criados na Stack não precisam do coletor, o de Heap precisa, Coletor vai apagando objetos do Heap e devolvendo memória
+		para outros processos
+		Diferente do C e C++ que precisa liberar memória manualmente, Java e outras já limpam sozinho a memória, mas isso gera custo
+		Enquanto coletor de lixo roda a aplicação é suspensa, Quando pensamos em milhões de requisições isso interfere
+	
+	Middleware de entrada Ex: 	
+	Existem anotações de Cache
+	Se formos buscar uma requisição de produto, e depois fazer a mesma busca, ele reutiliza do cache
+	Entrega responsa mais rápido para usuário
+	
+	Temos cache de servidor, e cache do cliente
+	Cache de cliente pode ser um problema, porque ele precisa expirar
+	Cache é composto por: 
+		key
+		body -> binário para ser mais leve, geralmente
+		TTL -> Time To Leave
+	Maior desafio é saber definir o expire ideal do que você estiver fazendo, depende do negócio, da sazonalidade
+	Ex: Em BlackFriday, se você deixar TTL muito grande o usuário vai ver coisa desatualizada e você vai perder muitas requisições
+	
+	CDN - Content Delivery Network
+		geralmente são para arquivos estáticos HTML, CSS, JS, imgs
+		Para responder usuários do outro lado do mundo
+		Latência de 200ms ida, 200ms volta, já foi quase meio segundo
+		Mais o tempo do processamento vira problema
+		Usuário espera até 2s
+		CDN ajuda nisso, servidor que é distribuído globalmente
+		Quando usuário busca img ele vai no CDN mais próximo, se ele não tiver ele vai no servidor mais próximo e depois salva
+		
+		delays diferentes para assistir a mesma coisa ao vivo existe por isso, depende do caminho que vai percorrer
+		
+	TradeOffs - abrimos mão de algo para ter outro
+	CDN entrega mais rápido, e o custo por response é economizado
+	
+	CDN é um nível de cache
+	Tem outro nível na máquina, o navegador já salva e vc n vai nem pro CDN
+	
+	Problemas em SPA, vc atualiza coisa, navegador do usuário + CDN retorna coisa antiga, quebra coisa, inferno pra desenvolvedor
+	
+	Buscadores tem um índice
+	Quando pesquisamos por algo ele consegue retornar porque tem uma URL
+	SPA não tem URL, por isso sites de ecommerce não usa SPA, não vai retornar no Google
+	
+	
