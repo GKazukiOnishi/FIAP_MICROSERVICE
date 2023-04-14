@@ -64,4 +64,48 @@ Só anotar com @AlgumaCoisa
 	Quando pesquisamos por algo ele consegue retornar porque tem uma URL
 	SPA não tem URL, por isso sites de ecommerce não usa SPA, não vai retornar no Google
 	
+UUID -> ID único, muito difícil de repetir
+	Mas ocupa 3 vezes o tamanho de um Long
+	Como Instagram gera ids?
 	
+	Sharding & IDs at Instagram
+		Vários bancos globalmente distribuídos com seus próprios IDs
+		Quando precisar replicar ele vai movendo para outros bancos
+		25 fotos e 90 likes todo segundo, hoje é mais
+		
+	Mas isso de ficar replicando pode gerar lentidão
+	Nisso uma solução é criar o próprio tipo de ID
+
+Para evitar expor IDs podemos mostra outro dado no lugar, ex: um GUID (UUID)
+
+MVC
+	para retornar dados a ModelView aceita atributos em formato de dicionário de dados
+	Nisso vamos montando key value e isso é acessável na tela porque é retornado na requisição (Bag)
+
+Paginação (Skip and Take)
+	não saímos buscando todos os produtos de uma só vez
+	as chances de não usar tudo é muito alta
+	Melhor consultar menos registros mas que sei que o usuário quer, precisa
+	
+	Vamos acessando a partir de entradas como:
+		página atual
+		total de itens
+		quantidade de itens por página
+	Nisso você consegue montar a paginação na tela e a API entende quais dados buscar
+
+Arquitetura
+	Se for 64 bits, para comparar um UUID (128 bits) ele vai custar 2 ciclos da CPU
+	Se o banco precisar ficar rodando a tabela inteira com esses IDs vai custar pro processador
+
+Memória Cache no Banco
+	Se ele tiver muita memória RAM é por isso
+	Ele vai salvando em memória RAM os resultados
+	Caso a consulta seja feita, vai retornar da memória RAM, não do Disco
+
+Existem também servidores de Cache
+	Ex: Redis
+	Servidores com muita muita memória RAM, 500Gb etc.
+
+Uma forma de cache é ter vários servidores de aplicação que se comunicam com um servidor de Cache parrudo
+esse servidor que pede pro Banco se for necessário
+
