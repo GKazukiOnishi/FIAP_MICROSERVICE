@@ -1,0 +1,24 @@
+Regex - Regular Expression
+	Um método de escrever código que permite encontrar padrões de texto
+	
+	Ex: Para validar CEP, CPF, Email
+	
+	site regex101.com
+	
+	(?<cep>[0-9]{5}-[0-9]{3})
+	vai dar match e separar o que ele encontrar em grupos
+	o grupo cep são 5 dígitos, hífen, 3 dígitos
+	
+	(?<cep>[0-9]{5}-[0-9]{3})|(?<telefone>\([0-9]{2}\)\s[0-9]{5}-[0-9]{4})
+	busca o grupo cep ou o grupo telefone
+	telefone é o ddd entre parênteses, um espaço (\s), 5 dígitos, hífen, 4 dígitos
+	
+	(?<cep>[0-9]{5}-[0-9]{3})|(?<telefone>\([0-9]{2,3}\)\s?[0-9]{4,5}-?[0-9]{4})
+	
+	(?<cep>[0-9]{5}-[0-9]{3})|(?<telefone>^\([0-9]{2,3}\)\s?[0-9]{4,5}-?[0-9]{4}$)
+	
+	flags -> indicar se é multilinha, global, unicode etc.
+	
+	usada para buscar texto, validar valores, validar entrada etc.
+	
+Site Disruptive Tech NowandNext
