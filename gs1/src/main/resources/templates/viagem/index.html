@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Tela de Viagens</title>
+</head>
+<body>
+
+	<h1>Viagens Interespaciais</h1>
+	
+	<a href="viagemTela/cadastrar">Cadastrar</a>
+
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Data Decolagem</th>
+				<th>Data Retorno</th>
+				<th>Duração da Estadia</th>
+				<th>Quantidade de Assentos</th>
+				<th>Modelo da Nave</th>
+				<th>Primeiro Comandante</th>
+				<th>Matrícula</th>
+				<th>Segundo Comandante</th>
+				<th>Matrícula</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="viagem : ${viagens}">
+				<td th:text="${viagem.getId()}"></td>
+				<td th:text="${viagem.getDataDecolagem()}"></td>
+				<td th:text="${viagem.getDataRetorno()}"></td>
+				<td th:text="${viagem.getDuracaoEstadia()}"></td>
+				<td th:text="${viagem.getQtdAssentosNave()}"></td>
+				<td th:text="${viagem.getNomeModeloNave()}"></td>
+				<td th:text="${viagem.getNomePrimeiroComandante()}"></td>
+				<td th:text="${viagem.getNomeSegundoComandante()}"></td>
+				<td th:text="${viagem.getMatriculaPrimeiroComandante()}"></td>
+				<td th:text="${viagem.getMatriculaSegundoComandante()}"></td>
+				<td><input type="button" onclick="editar()" value="Editar"></td>
+				<td><input type="button" onclick="deletar()" value="Deletar"></td>
+			</tr>
+		</tbody>
+	</table>
+
+<script>
+
+	let responseEntity;
+
+	const deletar = () => {
+		const form = document.getElementById("tabelaViagem");
+	    const formData = new FormData(form);
+	    const objBody = Object.fromEntries(formData.entries());
+	    
+		const header = new Headers();
+	    header.append("Content-Type", "application/json");
+	
+	    const requestOptions = {
+	        method: "DELETE",
+	        headers: header
+	    };
+	
+	    fetch(`/viagem/${objBody.id}`, requestOptions)
+	        .then(response => {
+	            responseEntity = response;
+	            return response.json();
+	        })
+	    	.then(data => tratarErro(data));
+	}
+	
+	const tratarErro = (data) => {
+		if (responseEntity.ok) {
+			alert("Viagem deletada");
+			return;
+		}
+		console.log(data);
+	};
+
+</script>
+
+</body>
+</html>

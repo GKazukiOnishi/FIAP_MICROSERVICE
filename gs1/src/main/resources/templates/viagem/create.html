@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastrar Viagem</title>
+</head>
+<body>
+
+	<a href="../viagemTela">Voltar</a>
+
+	<form method="post" id="frmViagem">
+	  <label for="dataDecolagem">Data decolagem:</label>
+	  <input type="date" name="dataDecolagem" id="dataDecolagem"><br>
+	
+	  <label for="duracaoEstadia">Duração de estadia:</label>
+	  <input type="number" name="duracaoEstadia" id="duracaoEstadia"><br>
+	
+	  <label for="qtdAssentosNave">Quantidade de Assentos:</label>
+	  <input type="number" name="qtdAssentosNave" id="qtdAssentosNave"><br>
+	
+	  <label for="nomeModeloNave">Nome do modelo:</label>
+	  <input type="text" name="nomeModeloNave" id="nomeModeloNave"><br>
+	
+	  <label for="nomePrimeiroComandante">Nome do primeiro comandante:</label>
+	  <input type="text" name="nomePrimeiroComandante" id="nomePrimeiroComandante"><br>
+	
+	  <label for="nomeSegundoComandante">Nome do segundo comandante:</label>
+	  <input type="text" name="nomeSegundoComandante" id="nomeSegundoComandante"><br>
+	  
+	  <label for="matriculaPrimeiroComandante">Matrícula do primeiro comandante:</label>
+	  <input type="text" name="matriculaPrimeiroComandante" id="matriculaPrimeiroComandante"><br>
+	  
+	  <label for="matriculaSegundoComandante">Matrícula do segundo comandante:</label>
+	  <input type="text" name="matriculaSegundoComandante" id="matriculaSegundoComandante"><br>
+	</form>
+
+	<input type="button" onclick="salva()" value="Cadastrar">
+	
+	<ul id="erros">
+	</ul>
+
+<script>
+
+	let responseEntity;
+
+	const salva = () => {
+	    const form = document.getElementById("frmViagem");
+	    const formData = new FormData(form);
+	    const objBody = Object.fromEntries(formData.entries());
+	    
+	    let dataDecolagem = objBody.dataDecolagem;
+	    const datasSeparadas = dataDecolagem.split("-");
+	    objBody.dataDecolagem = `${datasSeparadas[2]}/${datasSeparadas[1]}/${datasSeparadas[0]}`;
+	    
+	    const jsonBody = JSON.stringify(objBody);
+	    
+		const header = new Headers();
+	    header.append("Content-Type", "application/json");
+	
+	    const requestOptions = {
+	        method: "POST",
+	        headers: header,
+	        body: jsonBody
+	    };
+	
+	    fetch("/viagem", requestOptions)
+	        .then(response => {
+	            responseEntity = response;
+	            return response.json();
+	        })
+	    	.then(data => tratarErro(data));
+	}
+	
+	const tratarErro = (data) => {
+		if (responseEntity.ok) {
+			alert("Viagem cadastrada");
+			return;
+		}
+		
+		let listaErros = document.getElementById("erros");
+		listaErros.innerHTML = "";
+		
+		let erro = "";
+		
+		if (data.hasOwnProperty("dataDecolagem")) {
+			erro = `<li>${data.dataDecolagem}</li>`;
+		}
+		
+		listaErros.innerHTML = erro;
+	};
+
+</script>
+</body>
+</html>
