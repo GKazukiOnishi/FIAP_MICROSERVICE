@@ -1,0 +1,52 @@
+https://github.com/josercf/fiap-springboot
+
+Dependências de JPA e Driver da Oracle
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.oracle.database.jdbc</groupId>
+		<artifactId>ojdbc8</artifactId>
+		<scope>runtime</scope>
+	</dependency>
+	
+	ORM - Object Relational Mapping
+		Ferramenta que faz o papel de automatizar insert/update/delete e até mesmo fazer a gestão de banco
+		Consegue criar tabelas, alterar, remover e etc.
+		
+	JPA - Java Persistence API
+		Especificação para persistência em Java
+	
+	Hibernate - Dependência do Spring usa essa implementação do JPA
+		Ele tem o ORM nele
+		Então sabe fazer isso tudo
+	
+application.properties
+	No Spring com essa config usamos ele para colocar configs de:
+		porta do servidor - se tiver outra app vc troca para n conflitar
+		configs do jpa
+		config de datasource -> conexão com o banco de dados Oracle
+		configs de cache redis etc.
+		
+	server.port=8080
+	# JPA
+	spring.jpa.database-platform=org.hibernate.dialect.Oracle10gDialect -> dialeto do Oracle, falar na mesma língua
+	spring.jpa.hibernate.ddl-auto=update -> configuração para não recriar as tabelas toda hora, se existir reúsa - opção create/drop sai criando e dropando toda hora
+	spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL -> endereço do banco de dados
+	spring.datasource.username=rm87182 -> usuário logado, geralmente as empresas restringem a permissão desse usuário, não deixa fazer qualquer coisa
+	spring.datasource.password=020302
+	spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver -> driver configurado
+	spring.datasource.testWhileidle=true -> para sair testando se a conexão está ativa
+	spring.datasource.validationQuery=select 1 -> query para testar, algo fácil para n consumir nada pesado
+	spring.datasource.maxActive=3 -> se tivermos muitas requisições, cada uma poderia ter a sua conexão com o banco, porém nisso o limite de conexões do banco pode dar ruim
+		-> nisso temos um pool de conexões e limitamos a quantidade de conexões ativas simultaneamente
+	
+Injeção de Dependência
+	Pedimos uma interface, o "container" retorna o que vc quer para aquele caso
+	Diz o que quer, mas não como
+	
+	Então se for teste, pode usar uma classe de mock, só inserir em memória
+	Se for real, pode usar a classe que interage com o banco
+	
