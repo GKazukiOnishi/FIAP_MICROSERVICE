@@ -1,0 +1,123 @@
+Autenticação X Autorização
+
+	Autenticação - Ato de responder quem é o usuário
+	Autorização - Função de definir o que o usuário tem permissão para fazer
+	
+	Usuários - Pessoas, Sistemas, Contas de Serviços ...
+	
+	Autenticação - Pode ter várias camadas
+		Falar seu nome é uma
+		Falar senha é outra
+		Confirmar no celular é outra
+		
+		MFA - Multi Factor Authentication
+			O que você sabe, o que você tem
+			
+			OTP - One Time Pass (chaveiros itoken do Itau)
+				Tem uma seed um algoritmo que gera de acordo com o tempo
+		
+			Senha -> algo que você sabe
+			Token -> algo que você tem
+		
+			2FA - Two Factor - Sabe e Tem
+			
+			O terceiro fator é: O que você é (digital, biometria)
+		
+		Para salvar senha
+			Criptografar senha e armazenar no banco
+			Usar seed para modificar a senha
+			Comparar senha enviada, criptografar com seed e ver se bate com o que tem no banco
+			
+			Para deixar mais difícil ainda de descobrir a seed podemos usar a seed em cima de dados do usuário. Ex: nome e outro dado
+			De forma que cada usuário teria a sua seed única
+			
+		Resumo: Garantir que o usuário é quem diz ser
+		
+	Autorização
+		
+		Grupos de acesso/Papéis (Roles) e permissões
+		
+		Você estando no sistema, o que pode fazer
+		se pode inserir, deletar, usar x, usar y
+		
+		Bem mais fácil de trabalhar usando grupos ou papéis, fazer um por um é difícil, imagina tirar, controlar etc.
+		
+	Tipos de autenticação:
+		* Basic Authentication
+		* API Keys
+		* OAuth (OpenIdConnection e JWT)
+		
+		Existem padrões, porque se não não vai dar para integrar com outras coisas
+		
+		O mais conhecido é OAuth2.0
+			Ele dá uma receita para você seguir
+			Endpoint de autenticação do usuário
+			Precisa retornar token com x especificações
+			Escolher algoritmo de criptografia
+			Timeout para esperar usuário
+			etc.
+		
+		SAML - outro
+		Kerberur - outro
+		...
+		
+		JWT - JSON Web Token
+			String com três partes
+			
+			1: Header, especifica tipo, algoritmo de criptografia ...
+			2: payload, informações da autenticação, sub (id da autenticação), nome, iat (até quando é válido usando timestamp (segundos desde 01011970)
+			3: Verify Signature, garante que o dado não foi alterado
+				A chave precisa bater sempre para garantir que o dado não foi alterado
+			
+			O JWT só é lido através de uma chave assíncrona e da Verify Signature, se algo não bater não vai dar para ler (além de estar em base64)
+			
+		Basic Authentication
+			Login e senha e envia
+			usuario: senha -> converte em base 64 e manda na rede
+		
+			Por isso não é mais usada
+		
+		API Keys
+			A API vai passar uma chave e você usa ela para mostrar que é você
+			
+		OAuth2
+			Request de autorização
+			Recebe um Authorization Grant (forma como iremos autenticar)
+				Usado para reconhecer o cliente
+			Envia o Authorization Grant
+			Recebe o Access Token
+			Então envia o Access Token
+			
+			Resource Owner: Entidade que controla acesso a um recurso
+			Resource Server: Servidor com os recursos
+			Cliente: Quem faz requisições
+			Authorization Server: Faz a autorização
+			
+			OpenIdConnect: Extensão de autenticação OAuth
+				ótima forma de autenticar aplicações
+				pede autorização para usar os dados para outras coisas
+			...
+			
+		HTTPs - ...
+		
+		CORS - Para configurar quais APIs/Frontends vão poder usar a API
+		CSRF - Evitar que scripts sejam enviados na chamada para a API
+		
+		Configuração do SecurityConfig do Spring é feito em pilha
+		O último é o primeiro a rodar
+		
+		http
+		    .cors() //liberar acesso do CORS
+		 	.and()
+		 	.csrf().disable() //impede scripts
+		 	.authorizeRequests() //valida role
+			.anyRequest() //qualquer request
+			.authenticated() 
+			.and()
+			.httpBasic(); //primeiro autentica
+		
+		Configuração da pipeline de segurança da API
+		
+		
+		
+		
