@@ -145,5 +145,15 @@ Docker
 					docker stats {nome do container ou parte do id} -> traz informações estatísticas de uso de recursos do container, CPU usage, memória, network etc.
 				
 					
+					no docker run
+						-e -> configura variáveis de ambiente
+							-e POSTGRES_PASSWORD=suaSenha
+							muito melhor colocar essas informações no ambiente do que em .properties, pior ainda se for em arquivo compilado
+							Porque precisa compilar dnv 
+							Precisa mexer lá toda hora
+							variável de ambiente é mais tranquilo, cada um configura seu ambiente
+							Melhor ainda seria em um app de cofre
+							
+						
 					
 					
