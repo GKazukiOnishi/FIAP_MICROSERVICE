@@ -84,4 +84,66 @@ Docker
 			Gestão de arquivos, deixa mapear coisas do host físico com o container, para ter uma certa persistência de dados
 			Deixa configurar quanto de memória pode usar, CPU etc.
 			
+		Docker Hub - Site com várias imagens de docker
+		
+			Podemos filtra o SO da máquina
+				Se a imagem for de Linux, só roda em máquinas Linux, em geral roda muito melhor no Linux
+				Se for de Windows, só windows
+		
+			Arquitetura
+				ARM (Raspberry Pi, usados em celulares etc.)
+				ARM 64
+				x86
+				x86-64
 			
+			Imagens
+			
+				Nginx
+					Aplicações Web
+					geralmente precisam de Tomcat
+					Tem tomcat
+				
+					Tem diretório www e dá para servir sites
+					tem como colocar .war, jar e já funciona
+					
+					Doc no site, nginx.org
+					Precisa instalar
+					
+					Uma imagem tem várias tags, que disponibilizam versões diferentes
+						Usa OS diferente, arquitetura etc.
+					
+					Imagem com vários comandos com a receita de bolo para ter o nginx no container
+					
+					$ docker run --name some-nginx -d -p 8080:80  -v /caminhoNaMaquinaHost:/usr/share/nginx/html:ro nginx
+						
+						docker run -> roda uma imagem
+						--name -> atribui nome ao container
+						-d -> libera o terminal para executar outros comandos enquanto estiver rodando
+						-p 8080:80 -> faz o vínculo entre a porta 8080 do host e a porta 80 do container
+						-v xxx:xx -> mapeia a pasta do host xxx para o container em xx
+						:ro -> força o mapeamento em modo readonly (somente leitura)
+						nginx -> nome da imagem, dá para colocar ":nome_tag", sem isso pega a tag latest
+					
+					Docker trabalha com layers, as imagens são compostas em layers, então se alguma outra imagem usar a mesma layer, só reutiliza
+					Deixa mais rápido
+					
+					docker run --name some-nginx -d -p 8080:80 -v C:\Projetos:/usr/share/nginx/html:ro nginx
+					-> só lembrar de criar um index.html na pasta c:\projetos
+					
+					docker logs {nome do container ou parte do id}
+						puxa o log atual
+					
+					tento rodado uma vez e pausado, não dá para rodar dnv porque já está usando a porta e já tem contianer com o nome
+					
+					docker start {nome do container ou parte do id} -> starta de novo o container
+						... stop -> para o container
+					
+					docker inspect {nome do container ou parte do id} -> traz informações do container, configurações, ambientes, argumentos, status etc.
+					
+					A pasta associada ao container é associada direta, então se mexer no host lá mexe no container igual
+					
+					docker stats {nome do container ou parte do id} -> traz informações estatísticas de uso de recursos do container, CPU usage, memória, network etc.
+				
+					
+					
+					
