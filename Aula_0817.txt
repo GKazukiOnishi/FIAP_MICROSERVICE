@@ -1,0 +1,45 @@
+Docker
+	Para evitar criar caminhos absolutos na sua máquina para subir containers, podemos usar os dockerfile
+	
+	Criar arquivo chamado Dockerfile sem extensão na pasta que tem os arquivos do projeto (pode ter só um index.html)
+	
+	Nele colocar
+		FROM nginx:latest
+
+		COPY ./index.html /usr/share/nginx/html/ -> para copiar o arquivo index.html dentro do container na execução
+	
+	e estando nessa pasta rodar o comando
+		docker build . -t site-estatico:v1 -> comando para compilar o Dockerfile da pasta atual, -t (de tag) é o nome da imagem com a tag v1
+		
+	para rodar ela
+		docker run --name c1 -p 80:80 -d site-estatico:v1
+	
+	docker container ls -> lista os containers
+	
+	docker container stop {nomeContainer}
+	docker container rm {nomeContainer}
+	docker container rm {nomeContainer} --force
+	
+FROM nginx:latest
+
+COPY ./index.html /usr/share/nginx/html/
+COPY ./style.css /usr/share/nginx/html/ --> se não colocar o css não vai funcionar
+
+COPY . /usr/share/nginx/html/ --> copia tudo
+	
+	Não esquecer de parar o container antes de dar outro build
+	
+Criando agora um teste usando Node
+
+	criar outra pasta
+	criar arquivo index.js
+	rodar rpm init
+		(usar como entrypoint o index.js)
+	
+	npm install express -> comando para usar a lib express que é o framework que usa o Node para requisições Http
+	
+	npm -> gerenciador de pacotes do node
+	
+	pegar exemplo de código node para testar
+	
+	
