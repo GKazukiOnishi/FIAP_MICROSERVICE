@@ -1,0 +1,45 @@
+Backend
+	Contém diversas funcionalidades, componentes, regras de negócio
+	Etc.
+	
+	Pode ter mais de uma API -> Forma de comunicação externa do Backend
+	
+	Pode ter mais de um Frontend com as telas que usam diferentes APIs
+	
+	Backend, API, Frontend -> são cada um componentes diferentes
+	
+	C4-Model - (para quem não gosta de UML)
+		1 - Contexto - Diagrama de Contexto
+			Com o ator e o caso de uso
+			Ator interagindo com cada componente e eles entre si
+			
+			Ator -> Front-end -> API -> Backend
+		2 - Container
+			Adicionar mais detalhes, mostrar containers, a comunicação entre si, tecnologia
+			
+			Frontend -> API -> Barramento -> Backend
+				BFF para comunicação com cada tipo de frontend, alterando forma de comunicação, formato, tamanho dos dados etc.
+				Banco Redis -> Banco em memória, pode ficar próxima de alguns BFFs mais sobrecarregados
+				Banco de dados
+			
+			Obs: SLA: Service Level Agreement
+				99.99% online -> horas do ano * 0.01% = 53 min aprox indisponível no ano
+				Isso para cada componente, então em cada componente que falhar temos 53 min
+			
+			Existe um serviço de fila, com SLA de 100% (na teoria)
+			Basicamente, toda requisição HTTP, antes de ir pro back, vai pra fila
+			O Backend fica ouvindo a fila
+			Se o backend falhar, a fila está lá crescendo e mantendo a ordem de compra
+			O componente de fila armazena em disco assim como um banco, tem a ideia do ACID também, pode reiniciar que está lá
+			Quando o backend voltar a fila vai liberando normalmente
+			Se o backend estiver separado em vários microserviços, a fila vai se responsabilizar para mandar requisições pra eles, a API em si só vai retornar
+			Quando der erro, volta na fila (Timeout)
+			Quando der certo, tira da fila (ACK)
+			NACK -> deu errado, tenta dnv
+			Dá para registrar quantidade de tentativas que a fila vai tentar
+			
+			Obs: Rest x Restful -> Restful é a implementação do REST
+			
+			Vantagens de ter um banco para cada, é que vai registrando para cada microserviço o que rolou
+		3 - Componente
+		4 - Código
