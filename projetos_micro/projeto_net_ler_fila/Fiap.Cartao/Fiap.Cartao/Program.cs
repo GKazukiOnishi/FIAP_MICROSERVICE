@@ -26,9 +26,11 @@ namespace Fiap.Cartao
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine($" [x] recebido {message}");
+
+                channel.BasicAck(ea.DeliveryTag, false);
             };
             channel.BasicConsume(queue: "hello", //configurando no canal a fila a ser ouvida
-                                 autoAck: true, //retorna o ack, para tirar da fila, está automático aqui
+                                 autoAck: false, //se true, retorna o ack, para tirar da fila, está automático aqui com o true. se for false não
                                  consumer: consumer); //código de consumo da fila
             Console.WriteLine(" Pressione [enter] para finalizar.");
             Console.ReadLine(); //código vai parar aqui e vai deixar a fila rodando até digitarem algo

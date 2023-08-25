@@ -117,3 +117,17 @@ namespace Fiap.Cartao
         }
     }
 }
+
+
+JSON para microserviço de cartão
+{
+    "idPedido": "123",
+    "numeroCartao": "1234-5678-9123-4567",
+    "portador": "Jao da Silva",
+    "cvv": 123,
+    "vencimento": "10/26"
+}
+
+Fila processando mensagens, se ligar debug conseguimos simular um unacked -> em processamento
+Se o serviço para, ele só volta para ready, então evitamos que uma venda seja perdida
+
