@@ -43,3 +43,35 @@ Backend
 			Vantagens de ter um banco para cada, é que vai registrando para cada microserviço o que rolou
 		3 - Componente
 		4 - Código
+	
+Comandos
+	Subir fila no docker
+		docker run -d --hostname my-rabbit --name some-rabbit -p 8080:15672 -p 5672:5672 rabbitmq:3-management
+	
+		login localhost:8080 -> guest guest
+		5672 -> porta para utilizar a fila
+	Usar fila em .NET
+		using System.Text;
+		using RabbitMQ.Client;
+		using RabbitMQ.Client.Events;
+		var factory = new ConnectionFactory { HostName = "localhost" };
+		using var connection = factory.CreateConnection();
+		using var channel = connection.CreateModel();
+		channel.QueueDeclare(queue: "hello",
+							 durable: false,
+							 exclusive: false,
+							 autoDelete: false,
+							 arguments: null);
+		Console.WriteLine(" [*] Aguardando novas mensagens.");
+		var consumer = new EventingBasicConsumer(channel);
+		consumer.Received += (model, ea) =>
+		{
+			var body = ea.Body.ToArray();
+			var message = Encoding.UTF8.GetString(body);
+			Console.WriteLine($" [x] recebido {message}");
+		};
+		channel.BasicConsume(queue: "hello",
+							 autoAck: true,
+							 consumer: consumer);
+		Console.WriteLine(" Pressione [enter] para finalizar.");
+		Console.ReadLine();
