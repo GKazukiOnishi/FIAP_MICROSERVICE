@@ -22,14 +22,22 @@ namespace Fiap.Cartao
             Console.WriteLine(" [*] Aguardando novas mensagens.");
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) => //toda hora que o evento acontecer, vai chamar a função, ea -> events argumentos
+            consumer.Received += async (model, ea) => //toda hora que o evento acontecer, vai chamar a função, ea -> events argumentos
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine($" [x] recebido {message}");
 
-                ValidarCartao();
+                var cartao = await ValidarCartao();
+                
+                if (cartao is null)
+                {
+                    Console.WriteLine("Erro ao validar cartão");
+                    //tag, multiplos, reenfileirar
+                    channel.BasicNack(ea.DeliveryTag, false, false);
+                }
 
+                Console.WriteLine("Cartão validado com sucesso");
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             channel.BasicConsume(queue: "hello", //configurando no canal a fila a ser ouvida
