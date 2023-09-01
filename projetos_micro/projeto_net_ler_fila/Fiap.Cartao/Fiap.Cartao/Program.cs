@@ -28,6 +28,8 @@ namespace Fiap.Cartao
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine($" [x] recebido {message}");
 
+                ValidarCartao();
+
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             channel.BasicConsume(queue: "hello", //configurando no canal a fila a ser ouvida
@@ -37,11 +39,15 @@ namespace Fiap.Cartao
             Console.ReadLine(); //código vai parar aqui e vai deixar a fila rodando até digitarem algo
         }
 
+        //Task diz que o método vai rodar de forma assíncrona, pode parar a execução para rodar depois (deixa threads se organizarem melhor)
         static async Task<Cartao> ValidarCartao()
         {
             var httpClient = new HttpClient();
 
+            //await libera a thread para fazer outras coisas, até finalizar, mas vai esperar nesse ponto aqui
             var response = await httpClient.GetFromJsonAsync<Cartao>("https://demo6017126.mockable.io/validar-cartao");
+            //depois volta ao normal
+            //GetFromJson sabe converter o JSON no objeto da classe
 
             if (response == null)
             {
@@ -49,6 +55,7 @@ namespace Fiap.Cartao
                 return null;
             }
 
+            //retorno do serviço
             return response;
         }
     }
