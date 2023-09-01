@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -35,5 +36,28 @@ namespace Fiap.Cartao
             Console.WriteLine(" Pressione [enter] para finalizar.");
             Console.ReadLine(); //código vai parar aqui e vai deixar a fila rodando até digitarem algo
         }
+
+        static async Task<Cartao> ValidarCartao()
+        {
+            var httpClient = new HttpClient();
+
+            var response = await httpClient.GetFromJsonAsync<Cartao>("https://demo6017126.mockable.io/validar-cartao");
+
+            if (response == null)
+            {
+                Console.WriteLine("Erro ao validar cartão");
+                return null;
+            }
+
+            return response;
+        }
+    }
+    public class Cartao
+    {
+        public string idPedido { get; set; }
+        public string numeroCartao { get; set; }
+        public string portador { get; set; }
+        public int cvv { get; set; }
+        public string vencimento { get; set; }
     }
 }

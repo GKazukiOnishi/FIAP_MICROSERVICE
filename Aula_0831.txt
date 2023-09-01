@@ -1,0 +1,61 @@
+Continuando o projeto
+	Iremos criar uma API para receber informações consumidas pela fila, retornando para a fila em caso de erro
+
+	Podemos usar um Mockable.io para testes
+	Vamos criar um Mock de REST
+	
+	API para validar dados do cartão
+	GET ou POST?
+		GET deixa dados na URL
+		POST deixa mais seguro no body, mas não é semântico porque não estará criando nada
+	DR - Decisão arquitetural
+		Pensar nas camadas OSI, para entender se o dado estará exposto na determinada camada
+		Dado que a camada em que a URL ficará exposta não sairá da área de servidores
+	
+	Idempotência -> Forma de garantir que para uma mesma entrada, teremos uma mesma saída
+		Uma requisição com entrada X, correlation-ID y, pode ser tratada via cache para retornar o resultado
+		
+	Nos Headers da response podemos colocar vários headers:
+		correlation-id
+		headers para configurar tempo válido de cache
+		etc.
+	
+	O path da aplicação será /validar-cartao
+	Um GET
+	Sem Headers
+	Response status 200
+	Content-Type (Header) - application/json -> Existem parsers que convertem tipos em outros
+	Content-Encoding (Header) - Forma de codificação da mensagem 
+		application/json -> tem mais recursos para adicionar validações etc.
+		text/json -> só o JSON
+	
+	Response Status
+		200 -> Ok
+		201 -> Created
+		206 -> Partial Content
+		3xx -> redirecionamento etc.
+		4xx -> erro do cliente
+		5xx -> erro no servidor
+	
+	Body
+	{
+		"idPedido": "123",
+		"numeroCartao": "1234-5678-9123-4567",
+		"portador": "Jao da Silva",
+		"cvv": 123,
+		"vencimento": "10/26"
+	}
+	
+	Display Name -> nomear a requisição
+	Request logger true
+	Request Delay -> para testar tempo de resposta
+	
+	https://demo6017126.mockable.io/validar-cartao
+	
+	Para testar usando postman ou insomia, precisa desligar a validação de SSL certificate
+	
+	Header de response access-control-allow-origin -> configura quais URLs podem chamar a API 
+	x-cloud-trace-context -> rastreabilidade da requisição
+	
+	
+	
