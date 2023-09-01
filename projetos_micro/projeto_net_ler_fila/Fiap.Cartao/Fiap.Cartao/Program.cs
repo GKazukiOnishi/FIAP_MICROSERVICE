@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -28,17 +29,18 @@ namespace Fiap.Cartao
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine($" [x] recebido {message}");
 
-                var cartao = await ValidarCartao();
+                var cartao = await ValidarCartao1();
                 
                 if (cartao is null)
                 {
                     Console.WriteLine("Erro ao validar cartão");
-                    //tag, multiplos, reenfileirar
+                    //tag, multiplos, reenfileirar -> indica se volta pro começo da fila, o nack em si mantém na fila já
                     channel.BasicNack(ea.DeliveryTag, false, false);
+                } else
+                {
+                    Console.WriteLine("Cartão validado com sucesso");
+                    channel.BasicAck(ea.DeliveryTag, false);
                 }
-
-                Console.WriteLine("Cartão validado com sucesso");
-                channel.BasicAck(ea.DeliveryTag, false);
             };
             channel.BasicConsume(queue: "hello", //configurando no canal a fila a ser ouvida
                                  autoAck: false, //se true, retorna o ack, para tirar da fila, está automático aqui com o true. se for false não
@@ -65,6 +67,21 @@ namespace Fiap.Cartao
 
             //retorno do serviço
             return response;
+        }
+
+        static async Task<Cartao> ValidarCartao1()
+        {
+            var httpClient = new HttpClient();
+
+            var response = await httpClient.GetAsync("https://demo6017126.mockable.io/validar-cartao");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Erro ao validar. Status code: {response.StatusCode}");
+                return null;
+            }
+
+            return JsonSerializer.Deserialize<Cartao>(response.Content.ReadAsStream());
         }
     }
     public class Cartao
