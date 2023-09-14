@@ -1,0 +1,15 @@
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\bin\Debug\net6.0\Exemplo1.exe
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\bin\Debug\net6.0\Exemplo1.deps.json
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\bin\Debug\net6.0\Exemplo1.runtimeconfig.json
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\bin\Debug\net6.0\Exemplo1.dll
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\bin\Debug\net6.0\Exemplo1.pdb
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.csproj.AssemblyReference.cache
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.AssemblyInfoInputs.cache
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.AssemblyInfo.cs
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.csproj.CoreCompileInputs.cache
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.dll
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\refint\Exemplo1.dll
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.pdb
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\Exemplo1.genruntimeconfig.cache
+C:\Users\logonrmlocal\Desktop\FIAP_MICROSERVICE\passagemValorReferencia\Exemplo1\obj\Debug\net6.0\ref\Exemplo1.dll
