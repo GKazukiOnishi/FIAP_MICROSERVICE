@@ -37,4 +37,15 @@ Maiores ofensores de uma aplicação
 		Redis salva na memória RAM
 		Trabalha com chave e valor
 		
+		docker run --name some-redis -d -p 6379:6379 redis
 		
+		docker run --rm --name redis-commander -d -p 8081:8081 ghcr.io/joeferner/redis-commander:latest
+		
+		docker compose up -> no arquivo de config de compose.yaml
+		Permite configurar todos os comandos de containers de uma vez, que estarão conectados entre si na rede deles
+		Nisso conflitos, falhas são reduzidas, e fica mais fácil de subir
+		
+	No docker comander podemos configurar várias coisas no Redis
+	Podemos adicionar keys lá simplesmente
+	
+	Ex: fotos:produtos:1, tendo como valor uma string com o caminho da imagem
