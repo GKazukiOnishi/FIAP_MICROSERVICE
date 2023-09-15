@@ -49,3 +49,9 @@ Maiores ofensores de uma aplicação
 	Podemos adicionar keys lá simplesmente
 	
 	Ex: fotos:produtos:1, tendo como valor uma string com o caminho da imagem
+		Os ":" significam pastas dentro do redis
+			Por padrão lá dentro ordena do menor para o maior
+	
+	Criamos e rodamos uma API que utilizará o redis, e na busca de algo, vai verificar a key no redis antes de realizar a busca real
+	
+	Nisso, acessando http://localhost:3000/produto/1, temos o retorno do redis
