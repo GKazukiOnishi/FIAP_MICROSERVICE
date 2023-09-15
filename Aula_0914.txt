@@ -55,3 +55,6 @@ Maiores ofensores de uma aplicação
 	Criamos e rodamos uma API que utilizará o redis, e na busca de algo, vai verificar a key no redis antes de realizar a busca real
 	
 	Nisso, acessando http://localhost:3000/produto/1, temos o retorno do redis
+	
+	No Redis podemos criar essas chaves com a key, o dado e o TTL (Time to Leave)
+		Porque o cache não pode durar muito, porque se o dado for alterado vai retornar informação incorreta

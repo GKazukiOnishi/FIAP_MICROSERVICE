@@ -38,8 +38,16 @@ async function getProducts(req, res){
 }
 
 app.get("/produto/:id", getProducts);
-  
 
+async function getUsers(req, res){
+    const userId = req.params.id;
+    const cacheResults = await redisClient.get(`usuarios:${userId}`);
+    const user = JSON.parse(cacheResults);
+    res.json({ dados: user });
+}
+
+app.get("/usuario/:id", getUsers);
+  
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
