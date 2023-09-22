@@ -1,0 +1,53 @@
+Cache em memória
+
+Ataques - SQL Injection
+	Como evitar?
+	OWASP - Open Web Application Security Project
+		Organização dedicada a segurança de apps web
+	
+		Informações de vulnerabilidades abertas para todos para podermos nos proteger
+		Como se proteger?
+		
+		É gratuíto, mas nem todos conhecem, então é fácil aprender e vender isso pros outros
+		
+		CWE - Enumeração de Fraquezas Comuns
+			Todas vulnerabilidades encontradas são anotadas e explicadas
+			É a lista gerada pela OWASP
+		
+		
+	Entradas de usuários não filtrados, validados e sanitizados (limpar)
+	Queries dinâmicas com filtros abertos para o usuário, se não tratar o invasor consegue aproveitar
+	ORM sendo usado para buscar informações sensíveis da base de dados. Se trocarmos o ID estando logado continua funcionando.
+	Comandos podem ser rodados com intenções maliciosas através de informações concatenadas.
+	
+	Ter usuários de banco à parte para a aplicação permite bloquear ele em caso de vulnerabilidades
+	Permite dar permissões mínimas à aplicação
+	Já pensou em tratar filtros, tratar entradas, evitar acessos a linhas de outros usuários?
+	
+	Privacy By Design -> Conceito que nasceu junto da LGPD
+		Construir aplicações pensando em privacidade e segurança do usuário
+		Como evitar vazamento de informações
+
+Prática
+	clone no https://github.com/josercf/SqlInjection-Lab.git
+	
+	Rodar compose - docker compose up na pasta com o arquivo do compose
+	Instalar extensão de PostgreSQL no AzureDataStudio
+	
+	Logando no localhost:8080
+	
+	SELECT * FROM "Product" WHERE "Name" LIKE '%Ham%' -> 2 linhas
+	SELECT * FROM "Product" WHERE "Name" LIKE '%Ham'--' -> 0 linhas
+	Se o invasor conseguir fazer isso, consegue alterar a query já (só acontece a string não for sanitizada
+	
+	SELECT * FROM "Product" WHERE "Name" LIKE '%Ham';SELECT pg_sleep(10)--%'
+		Funciona só no Postgree, fazendo isso podemos descobrir o tipo de banco de dados
+	
+	SELECT * FROM "Product" WHERE "Name" LIKE '%mer%'
+	UNION
+	SELECT '1','2','3';
+	
+
+	SELECT * FROM "Product" WHERE "Name" LIKE '%mer%'
+	UNION
+	SELECT table_name, table_schema, '' FROM pg_catalog.pg_tables
