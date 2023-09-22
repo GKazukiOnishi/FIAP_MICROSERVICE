@@ -50,4 +50,19 @@ Prática
 
 	SELECT * FROM "Product" WHERE "Name" LIKE '%mer%'
 	UNION
-	SELECT table_name, table_schema, '' FROM pg_catalog.pg_tables
+	SELECT table_name, table_schema, '' FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'
+	
+	SELECT * FROM "Product" WHERE "Name" LIKE '%mer%'
+	UNION
+	SELECT table_name, table_schema, '' FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'
+	UNION
+	SELECT * FROM "Users"
+	
+	Se fosse um outro user na aplicação, isso já seria evitado
+	
+	Na pasta webAppLab tem uma aplicação C#
+	
+	Como evitar o sqlInjection causado por texto concatenado?
+		Utilizar classes que apresentam tratamentos para prencher parâmetros de queries
+		
+		
