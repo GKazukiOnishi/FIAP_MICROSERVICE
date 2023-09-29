@@ -1,0 +1,32 @@
+{
+  "name": "integration-tests",
+  "version": "1.0.0",
+  "description": "Testes de integração",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josercf/introduction-integration-tests.git"
+  },
+  "keywords": [
+    "tdd",
+    "teste",
+    "inteegração"
+  ],
+  "author": "José Romualdo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josercf/introduction-integration-tests/issues"
+  },
+  "homepage": "https://github.com/josercf/introduction-integration-tests#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "supertest": "^6.3.3"
+  }
+}
