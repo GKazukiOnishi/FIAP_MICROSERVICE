@@ -11,8 +11,10 @@ import br.com.fiap.gs1.modelo.LocalizacaoModel;
 import br.com.fiap.gs1.modelo.NaveModel;
 import br.com.fiap.gs1.modelo.ViagemModel;
 import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 
 @Component
+@Validated
 public class ViagemBean {
 	
 	public ViagemModel cadastraViagem(@Valid ViagemModel viagem) {
