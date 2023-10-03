@@ -1,0 +1,89 @@
+Docker
+	Para evitar criar caminhos absolutos na sua máquina para subir containers, podemos usar os dockerfile
+	
+	Criar arquivo chamado Dockerfile sem extensão na pasta que tem os arquivos do projeto (pode ter só um index.html)
+	
+	Nele colocar
+		FROM nginx:latest
+
+		COPY ./index.html /usr/share/nginx/html/ -> para copiar o arquivo index.html dentro do container na execução
+	
+	e estando nessa pasta rodar o comando
+		docker build . -t site-estatico:v1 -> comando para compilar o Dockerfile da pasta atual, -t (de tag) é o nome da imagem com a tag v1
+		
+	para rodar ela
+		docker run --name c1 -p 80:80 -d site-estatico:v1
+	
+	docker container ls -> lista os containers
+	
+	docker container stop {nomeContainer}
+	docker container rm {nomeContainer}
+	docker container rm {nomeContainer} --force
+	
+FROM nginx:latest
+
+COPY ./index.html /usr/share/nginx/html/
+COPY ./style.css /usr/share/nginx/html/ --> se não colocar o css não vai funcionar
+
+COPY . /usr/share/nginx/html/ --> copia tudo
+	
+	Não esquecer de parar o container antes de dar outro build
+	
+Criando agora um teste usando Node
+
+	criar outra pasta
+	criar arquivo index.js
+	rodar rpm init
+		(usar como entrypoint o index.js)
+	
+	npm install express -> comando para usar a lib express que é o framework que usa o Node para requisições Http
+	
+	npm -> gerenciador de pacotes do node
+	
+	pegar exemplo de código node para testar
+	
+	npm install -> garante que as dependências estão instaladas
+	
+	node index.js -> roda a aplicação node
+
+Dockerfile
+
+# Node server
+FROM node:16-alpine as node-server -> imagem base com apelido node-server
+WORKDIR /usr/src/app -> define a pasta /usr/src/app como diretório de trabalho
+COPY ./package.json . -> copia o arquivo ./package.json da minha máquina para o WORKDIR
+RUN npm install --production --silent && mv node_modules ../ --> rodar o comando "npm install --production --silent && mv node_modules ../", vai rodar no modo produção (libs otimizadas), de forma sileciosa (sem muito log), e vai copiar a pasta node_modules para um nível acima
+COPY index.js . -> copia o arquivo index.js para o WORKDIR
+
+#obs, ao dar build na imagem ele vai ficando cada vez mais rápido porque faz cache
+#a imagem acima vai ser desprezada no final, só vai usar pro build (uma imagem mais pesada)
+
+# Final image -> mais leve, só para rodar
+FROM node:12-alpine
+WORKDIR /usr/src/app
+COPY --from=node-server /usr/src /usr/src -> referencia a imagem de cima e copia a /usr/src dela para a /usr/src da atual
+EXPOSE 8080 -> expor porta 8080
+CMD ["node", "index.js"] -> vai rodar o comando "node index.js"
+
+	docker build . -t api:v1 -> só vai gerar 1 imagem, a outra de build não vai rodar (poderia ter uma de teste etc.)
+	
+	docker run -d --name c2 -p 8080:8080 api:v1
+	
+Conforme vai tendo mais componentes conectados a coisa complica
+	(daí veio o docker compose que vamos ver na próx aula)
+	
+Exemplo 3
+
+	dotnet --version
+	
+	dotnet new webapi -n tempoapi -> cria o projeto dotnet
+	
+	dotnet build --help
+	
+	dotnet build tempoapi
+	
+	dotnet run --project tempoapi
+	
+	acessar http://localhost:5098/swagger/index.html
+	
+	

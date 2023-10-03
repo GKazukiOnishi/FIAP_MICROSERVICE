@@ -1,0 +1,12 @@
+.menu {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    margin: 0;
+    background-color: azure;
+}
+
+.menu li {
+    padding: 5px;
+}

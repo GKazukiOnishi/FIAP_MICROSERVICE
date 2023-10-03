@@ -1,0 +1,159 @@
+Docker
+	Container vs Virtual Machine
+		Máquinas virtuais é a ideia de ter um computador com seu SO
+		Uma camada de Hypervisor (VMware, Hyper v, ...)
+		Em cima dela temos outros SOs virtuais que tem seus recursos distribuídos pelo Hypervisor
+		Essa camada possibilita essa configuração, permitindo ter várias "máquinas" dentro de outra
+		
+		A máquina física tem uma quantidade de recursos limitada, as virtuais utilizam partes desses recursos
+		
+		Isso possibilitou o início da Cloud
+		Você paga para ter uma máquina virtual dentro de um servidor potente na Cloud
+		
+		"Na minha máquina funciona"
+			Acontece porque nos servidores dos clientes pode acontecer várias mudanças que tornam o ambiente diferente do seu
+			Começam a surgir ambientes heterogêneos
+			às vezes é diferença de implementação, versão etc.
+		
+		Container
+		Espaços dentro de um servidor separados logicamente
+		Um só SO
+		Uma camada de Docker Daemon (Ou outra de containerização)
+		E os containers
+		
+		Então não temos vários SOs inteiros para cada aplicação
+		Um SO e as separações lógicas
+		Cada container com os seus recursos, rede virtual, ambiente
+		Os containers entre si não se enxergam por padrão (pode ser configurado)
+		
+		É mais simples e leve do que configurar e gerenciar todo um SO diferente
+		
+		Imagem é a configuração passo a passo de como posso rodar um container
+		Dizendo as dependências, configurações de ambiente, SO emulado, usuário etc.
+		São agrupamentos de configurações
+		
+		Os containers criados a partir de uma imagem X são todos iguais
+		
+		Um código gera uma docker image
+		Docker image é a receita do bolo
+		Container é o bolo feito a partir da receita
+		
+		Containers são efêmeros, temporários, curtos, breves
+			Depois de fazer o seu trabalho podem ser destruídos facilmente
+		A ideia é ter vários containers conectados em um/mais servidor(es)
+		
+		Tipos de Escalabilidade
+			Horizontal
+				Aumentamos horizontalmente, criamos mais containers, VMs, máquinas
+				Aumentando o poder de processamento através de quantidade
+				
+				Vantagens
+					Toda hora que chega perto do limite de recurso, é só criar um outro container
+					Aí a carga vai sendo distribuída entre cada um
+					
+					Na nuvem, na cloud, temos Cluster de servidores, então conforme vc vai usando mais e precisando, ele consegue só usar mais uma máquina do cluster
+					Então vc paga só e já está escalado
+					Não precisa desligar nada
+					
+					Em dias com menos demanda, é só tirar máquinas e o custo abaixa
+				Desvantagens
+					Tem o tempo até subir o novo ambiente
+					Não é infinito também, tem o limite do host físico
+					Precisa ter configurado direitinho o autoescale, não é só colocar mais
+					Precisa ter um plano para caso de ataques, eles precisam se conversar
+			Vertical
+				Aumentamos verticalmente, melhorando o hardware, colocando mais memória, com um melhor processador, mais espaço de armazenamento
+				Desvantagens
+					Para o ambiente para o upgrade
+					Tem limite de upgrade, não dá para sair melhorando infinitamente
+					É muito caro
+				Vantagem
+					Não precisa reimplantar o ambiente
+					Só ligar de novo que provavelmente vai funcionar com melhor performance
+					Sistemas legados não costumam ter um manual para configurar o ambiente de novo
+				
+		O container tem:
+			Rede (deixa configurar porta, ip etc.)
+			Arquitetura
+			Memória/CPU
+		
+			Ele tem um balanceamento de carga, sabe mandar para quem tem menos carga para processar melhor
+			Não usa IP fixo porque é efemero, vai sendo destruído e contruído toda hora
+			Usa DNS geralmente e o autoescale pega o IP e sai redirecionando
+			Controle de portas, faz um depara da porta do container com do SO
+			Gestão de arquivos, deixa mapear coisas do host físico com o container, para ter uma certa persistência de dados
+			Deixa configurar quanto de memória pode usar, CPU etc.
+			
+		Docker Hub - Site com várias imagens de docker
+		
+			Podemos filtra o SO da máquina
+				Se a imagem for de Linux, só roda em máquinas Linux, em geral roda muito melhor no Linux
+				Se for de Windows, só windows
+		
+			Arquitetura
+				ARM (Raspberry Pi, usados em celulares etc.)
+				ARM 64
+				x86
+				x86-64
+			
+			Imagens
+			
+				Nginx
+					Aplicações Web
+					geralmente precisam de Tomcat
+					Tem tomcat
+				
+					Tem diretório www e dá para servir sites
+					tem como colocar .war, jar e já funciona
+					
+					Doc no site, nginx.org
+					Precisa instalar
+					
+					Uma imagem tem várias tags, que disponibilizam versões diferentes
+						Usa OS diferente, arquitetura etc.
+					
+					Imagem com vários comandos com a receita de bolo para ter o nginx no container
+					
+					$ docker run --name some-nginx -d -p 8080:80  -v /caminhoNaMaquinaHost:/usr/share/nginx/html:ro nginx
+						
+						docker run -> roda uma imagem
+						--name -> atribui nome ao container
+						-d -> libera o terminal para executar outros comandos enquanto estiver rodando
+						-p 8080:80 -> faz o vínculo entre a porta 8080 do host e a porta 80 do container
+						-v xxx:xx -> mapeia a pasta do host xxx para o container em xx
+						:ro -> força o mapeamento em modo readonly (somente leitura)
+						nginx -> nome da imagem, dá para colocar ":nome_tag", sem isso pega a tag latest
+					
+					Docker trabalha com layers, as imagens são compostas em layers, então se alguma outra imagem usar a mesma layer, só reutiliza
+					Deixa mais rápido
+					
+					docker run --name some-nginx -d -p 8080:80 -v C:\Projetos:/usr/share/nginx/html:ro nginx
+					-> só lembrar de criar um index.html na pasta c:\projetos
+					
+					docker logs {nome do container ou parte do id}
+						puxa o log atual
+					
+					tento rodado uma vez e pausado, não dá para rodar dnv porque já está usando a porta e já tem contianer com o nome
+					
+					docker start {nome do container ou parte do id} -> starta de novo o container
+						... stop -> para o container
+					
+					docker inspect {nome do container ou parte do id} -> traz informações do container, configurações, ambientes, argumentos, status etc.
+					
+					A pasta associada ao container é associada direta, então se mexer no host lá mexe no container igual
+					
+					docker stats {nome do container ou parte do id} -> traz informações estatísticas de uso de recursos do container, CPU usage, memória, network etc.
+				
+					
+					no docker run
+						-e -> configura variáveis de ambiente
+							-e POSTGRES_PASSWORD=suaSenha
+							muito melhor colocar essas informações no ambiente do que em .properties, pior ainda se for em arquivo compilado
+							Porque precisa compilar dnv 
+							Precisa mexer lá toda hora
+							variável de ambiente é mais tranquilo, cada um configura seu ambiente
+							Melhor ainda seria em um app de cofre
+							
+						
+					
+					

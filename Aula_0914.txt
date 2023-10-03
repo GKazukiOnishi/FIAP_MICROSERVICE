@@ -1,0 +1,60 @@
+Maiores ofensores de uma aplicação
+	- Disco
+	- Rede
+	- GC - Garbage Collector
+
+	Quando rodamos um SELECT buscamos o arquivo no disco em algum lugar, que por sua vez tem as informações espalhadas nos seus setores
+	Então acaba ficando ficando lento
+
+	IOPS - E/S por segundo, quanto maior o IOPS melhor o disco
+	
+	Quando tomamos a decisão de usar um NoSQL ou usar um banco em memória (ex: Redis)?
+	
+	Rede com seus problemas de infraestrutura, a distância, equipamento, etc. interferindo na performance
+	Muito melhor um servidor mais próximo, usando fibra ótica
+	
+	Memória HEAP e Stack
+	
+		tipos primitivos int, char e bool -> ficam na HEAP, memória menor
+		Stack -> memória para tipos de dados maiores
+	
+	GC -> vai limpando a memória de objetos que não estão sendo usados
+		E enquanto estiver rodando, suspende a aplicação
+		Isso vai deixando a aplicação parada por mais tempo e consumindo performance
+		
+	Então quando algo está lento, vamos vendo por etapas o ofensor
+	Olhamos o disco, a rede e o GC
+	
+	Conforme vai indo vamos melhorando e testando para ver se já resolveu
+	
+	Se ao acessar uma tela
+		O disco é acessado para buscar as URLs de arquivos no banco de dados, a exemplo de imagens
+		E então essas imagens precisam ser acessadas também
+		E isso para qualquer pessoa acessando o site
+		
+		Temos uma forma melhor de fazer isso, que é usando um NoSQL em memória, ao invés de um relacional que salva no disco
+		
+		Redis salva na memória RAM
+		Trabalha com chave e valor
+		
+		docker run --name some-redis -d -p 6379:6379 redis
+		
+		docker run --rm --name redis-commander -d -p 8081:8081 ghcr.io/joeferner/redis-commander:latest
+		
+		docker compose up -> no arquivo de config de compose.yaml
+		Permite configurar todos os comandos de containers de uma vez, que estarão conectados entre si na rede deles
+		Nisso conflitos, falhas são reduzidas, e fica mais fácil de subir
+		
+	No docker comander podemos configurar várias coisas no Redis
+	Podemos adicionar keys lá simplesmente
+	
+	Ex: fotos:produtos:1, tendo como valor uma string com o caminho da imagem
+		Os ":" significam pastas dentro do redis
+			Por padrão lá dentro ordena do menor para o maior
+	
+	Criamos e rodamos uma API que utilizará o redis, e na busca de algo, vai verificar a key no redis antes de realizar a busca real
+	
+	Nisso, acessando http://localhost:3000/produto/1, temos o retorno do redis
+	
+	No Redis podemos criar essas chaves com a key, o dado e o TTL (Time to Leave)
+		Porque o cache não pode durar muito, porque se o dado for alterado vai retornar informação incorreta
